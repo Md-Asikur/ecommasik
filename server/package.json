@@ -5,14 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "cd client && npm run start",
-    "install-server": "npm install",
-    "install-client": "cd client && npm install",
-    "build": "cd client && npm run build",
-    "install-all": "concurrently \"npm run server-install\" \"npm run client-install\"",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "npm run install-client && npm run build"
+    "server": "nodemon server.js"
+   
   },
   "keywords": [],
   "author": "",
