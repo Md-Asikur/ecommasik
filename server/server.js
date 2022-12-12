@@ -9,6 +9,15 @@ const bodyParser = require('body-parser')
 
 
 const app = express()
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", process.env.CLIENT_URL);
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, Content-Type, Authorization"
+  );
+  next();
+});
 app.use(express.json())
 
 app.use(bodyParser.json());
@@ -39,24 +48,26 @@ mongoose.connect(URI, {
     if(err) throw err;
     console.log('Connected to MongoDB')
 })
+app.get("/", (req, res) => {
+  res.json({message:"Live SErver Is Running"})
+})
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static('client/build'))
+//     app.get('*', (req, res) => {
+//         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+//     })
+// }
 
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static('client/build'))
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-    })
-}
+// //build for vercel
+// app.use(express.static(path.join(__dirname, "./client/build")));
 
-//build for vercel
-app.use(express.static(path.join(__dirname, "./client/build")));
-
-app.get("*", function (_, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"), function (err) {
-    if (err) {
-      res.status(500).send(err);
-    }
-  });
-});
+// app.get("*", function (_, res) {
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"), function (err) {
+//     if (err) {
+//       res.status(500).send(err);
+//     }
+//   });
+// });
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () =>{

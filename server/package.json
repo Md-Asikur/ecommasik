@@ -4,8 +4,8 @@
   "description": "> Ecommerce website built with the MERN stack with React Context API for state management, pure CSS for style",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js"
+    "start": "nodemon server.js"
+    
   },
   "keywords": [],
   "author": "",
